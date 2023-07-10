@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhmpt57fbb4an"]
+
+[ext_resource type="Script" path="res://scripts/GerenteInimigos.cs" id="1_n3b8w"]
+[ext_resource type="PackedScene" uid="uid://c1570lrd4qih" path="res://cenas/inimigos/inimigo.tscn" id="2_leo32"]
+
+[node name="GerenteInimigos" type="Node3D"]
+script = ExtResource("1_n3b8w")
+n_cenaInimigos = ExtResource("2_leo32")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="TimerNovosInimigos"]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cglt0t4fexlf5"]
+
+[ext_resource type="Script" path="res://scripts/jogador.cs" id="1_l74fd"]
+[ext_resource type="PackedScene" uid="uid://dfcuv81pvoypn" path="res://cenas/magia/magia.tscn" id="2_5lscv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jance"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_njrl3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n47n6"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ogaf0"]
+
+[node name="Jogador" type="CharacterBody3D" groups=["Jogador"]]
+script = ExtResource("1_l74fd")
+n_cenaMagia = ExtResource("2_5lscv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_jance")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_njrl3")
+
+[node name="Rosto" type="Node3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="Rosto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.647902, -0.13665)
+
+[node name="posInicialMagia" type="Marker3D" parent="Rosto/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0300173, -1.99097)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Rosto/Camera"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, -0.0457432, -2.02164)
+material_override = SubResource("StandardMaterial3D_n47n6")
+mesh = SubResource("SphereMesh_ogaf0")
+skeleton = NodePath("../../..")

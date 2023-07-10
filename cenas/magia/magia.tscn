@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfcuv81pvoypn"]
+
+[ext_resource type="Script" path="res://scripts/magia.cs" id="1_e6cxl"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ym42n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7xws"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xvj2"]
+next_pass = SubResource("StandardMaterial3D_y7xws")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.607843, 0.509804, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.686275, 0.407843, 0, 1)
+emission_energy_multiplier = 3.91
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xfu1h"]
+
+[node name="Magia" type="Area3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_e6cxl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ym42n")
+surface_material_override/0 = SubResource("StandardMaterial3D_1xvj2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xfu1h")
