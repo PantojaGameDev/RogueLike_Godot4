@@ -27,8 +27,5 @@ public partial class GerenteInimigos : Node3D
 		}
 	}
 
-	private void TimerNovosInimigos()
-	{
-		m_numeroInimigos = 0;
-	}
+	private void TimerNovosInimigos() => m_numeroInimigos = 0;
 }
