@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class GerenteInimigos : Node3D
 {
@@ -10,14 +9,14 @@ public partial class GerenteInimigos : Node3D
 
 	private Vector3 v_posIni = Vector3.Zero;
 
+	public override void _Ready()
+	{
+		n_PosInicialInimigos = GetTree().GetFirstNodeInGroup("posInicialInimigos") as Marker3D;
+	}
 
-    public override void _Ready()
-    {
-        n_PosInicialInimigos = GetTree().GetFirstNodeInGroup("posInicialInimigos") as Marker3D;
-    }
-    public override void _Process(double delta)
-    {
-        if(m_numeroInimigos < m_numeroMaxInimigos)
+	public override void _Process(double delta)
+	{
+		if (m_numeroInimigos < m_numeroMaxInimigos)
 		{
 			v_posIni.Z += 1;
 			var inimigos = (Node3D)n_cenaInimigos.Instantiate();
@@ -26,7 +25,7 @@ public partial class GerenteInimigos : Node3D
 			m_numeroInimigos += 1;
 			//GD.Print(m_numeroInimigos);
 		}
-    }
+	}
 
 	private void TimerNovosInimigos()
 	{

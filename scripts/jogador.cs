@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class jogador : CharacterBody3D
 {
@@ -9,23 +8,20 @@ public partial class jogador : CharacterBody3D
 	private float m_sensibilidadeMouse = 0.003f;
 	private bool m_jogadorPodeMover = true;
 
-	
-
 	private Node3D n_rostoJogador;
 	private Camera3D n_cameraJogador;
 	[Export] private PackedScene n_cenaMagia;
 
-
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-        n_rostoJogador = GetNode<Node3D>("Rosto");
-		n_cameraJogador = GetNode<Camera3D>("Rosto/Camera");	
+		n_rostoJogador = GetNode<Node3D>("Rosto");
+		n_cameraJogador = GetNode<Camera3D>("Rosto/Camera");
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event is InputEventMouseMotion)
+	{
+		if (@event is InputEventMouseMotion)
 		{
 			InputEventMouseMotion movimentoMouse = @event as InputEventMouseMotion;
 			n_rostoJogador.RotateY(-movimentoMouse.Relative.X * m_sensibilidadeMouse);
@@ -35,20 +31,19 @@ public partial class jogador : CharacterBody3D
 			n_cameraJogador.Rotation = rotCamera;
 		}
 
-		if(Input.IsActionJustPressed("correr"))
+		if (Input.IsActionJustPressed("correr"))
 		{
 			m_velocidadeJogador = 10.0f;
 		}
-		if(Input.IsActionJustPressed("atirar"))
+		if (Input.IsActionJustPressed("atirar"))
 		{
 			DispararMagia();
 		}
-		
-    }
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(m_jogadorPodeMover)
+		if (m_jogadorPodeMover)
 		{
 			MoverJogador((float)delta);
 		}
@@ -60,19 +55,17 @@ public partial class jogador : CharacterBody3D
 		magia.GlobalTransform = GetNode<Marker3D>("Rosto/Camera/posInicialMagia").GlobalTransform;
 		Owner.AddChild(magia);
 	}
+
 	private void MoverJogador(float delta)
 	{
 		Vector3 velocity = Velocity;
 
-		
 		if (!IsOnFloor())
 			velocity.Y -= m_GRAVIDADE * (float)delta;
 
-		
 		if (Input.IsActionJustPressed("pular") && IsOnFloor())
 			velocity.Y = m_velocidadePulo;
 
-		
 		Vector2 inputDir = Input.GetVector("mover_esquerda", "mover_direita", "mover_frente", "mover_tras");
 		Vector3 direction = (n_rostoJogador.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
